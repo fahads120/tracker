@@ -1,5 +1,3 @@
-# tracker/utils.py
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -12,19 +10,19 @@ def fetch_content(url):
         return response.text  # Return the raw HTML content
     except requests.RequestException as e:
         print(f"Error fetching the content from {url}: {e}")
-        return None
+        return None  # Return None if the request fails
 
 def check_appointment_status(page_content):
     """Check if an appointment slot is available on the page."""
     if page_content is None:
-        return False
+        return False  # Return False if page content is None
 
     # Parse the HTML content using BeautifulSoup
     soup = BeautifulSoup(page_content, "html.parser")
     
     # Look for specific text or elements that indicate an available appointment
-    # This will depend on the structure of the page you're scraping
-    appointment_text = soup.find("div", class_="appointment-status")  # Example: you need to adjust this to your page structure
+    # This selector might need to be adjusted based on the actual page structure
+    appointment_text = soup.find("div", class_="appointment-status")  # Update this selector as needed
     if appointment_text and "available" in appointment_text.text.lower():
         return True  # Appointment is available
     
